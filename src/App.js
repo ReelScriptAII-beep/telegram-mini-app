@@ -1,41 +1,88 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
-    // Telegram WebApp initialization
     if (window.Telegram?.WebApp) {
       const tg = window.Telegram.WebApp;
-      tg.expand(); // Open in full screen inside Telegram
-      console.log("Telegram WebApp ready");
-
-      // Example: set MainButton text
-      tg.MainButton.setText("Click Me!");
-      tg.MainButton.show();
-      tg.MainButton.onClick(() => {
-        tg.sendData("Button Clicked!"); // Sends data to bot
-        alert("Button clicked inside Telegram Mini App!");
-      });
+      tg.expand();
+      console.log("Telegram WebApp is ready");
+    } else {
+      console.log("Not running inside Telegram WebApp");
     }
   }, []);
 
   return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h1>Telegram Mini App Working 🎉</h1>
+    <div
+      style={{
+        padding: "20px",
+        textAlign: "center",
+        fontFamily: "Arial, sans-serif",
+        backgroundColor: "#f8f9fa",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <h1 style={{ color: "#0088cc" }}>Telegram Mini App 🎉</h1>
+      <p style={{ fontSize: "18px", color: "#555" }}>
+        Welcome to your Telegram Mini App!
+      </p>
 
-      <p>Welcome to your Telegram Mini App!</p>
+      <div style={{ marginTop: "30px" }}>
+        <button
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            border: "none",
+            borderRadius: "5px",
+            backgroundColor: "#0088cc",
+            color: "#fff",
+            marginRight: "10px",
+          }}
+          onClick={() => setCount(count + 1)}
+        >
+          +1
+        </button>
+        <button
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            cursor: "pointer",
+            border: "none",
+            borderRadius: "5px",
+            backgroundColor: "#dc3545",
+            color: "#fff",
+          }}
+          onClick={() => setCount(count - 1)}
+        >
+          -1
+        </button>
+      </div>
 
-      {/* Example UI component */}
-      <button
-        onClick={() => alert("Local Button Clicked!")}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          marginTop: "20px",
-          cursor: "pointer",
-        }}
-      >
-        Local Button
-      </button>
+      <p style={{ fontSize: "20px", marginTop: "20px" }}>
+        Counter: <strong>{count}</strong>
+      </p>
+
+      <div style={{ marginTop: "40px" }}>
+        <button
+          style={{
+            padding: "12px 25px",
+            fontSize: "16px",
+            cursor: "pointer",
+            borderRadius: "5px",
+            backgroundColor: "#28a745",
+            color: "#fff",
+            border: "none",
+          }}
+          onClick={() => alert("Hello from Telegram Mini App!")}
+        >
+          Say Hello
+        </button>
+      </div>
     </div>
   );
 }
